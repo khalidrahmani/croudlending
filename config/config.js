@@ -32,7 +32,7 @@ module.exports = {
     }
   , production: {
 	  root: require('path').normalize(__dirname + '/..'),
-	  db: 'mongodb://heroku:8e85fbf681f6b48902442e03c2e7ff39@linus.mongohq.com:10089/app13037458'
+	  db: 'mongodb://heroku:8e85fbf681f6b48902442e03c2e7ff39@linus.mongohq.com:10089/app13037458',
 	  facebook: {
           clientID: "APP_ID"
         , clientSecret: "APP_SECRET"
