@@ -31,6 +31,6 @@ module.exports = {
 
     }
   , production: {
-	  db: process.env.MONGOHQ_URL
+	  db: 'mongodb://heroku:8e85fbf681f6b48902442e03c2e7ff39@linus.mongohq.com:10089/app13037458'
     }
 }
