@@ -1,0 +1,41 @@
+extends ../layouts/default
+
+block content
+  - var action = '/circles'
+  if (!circle.isNew)
+    - action += '/'+circles.id
+
+  if (typeof errors !== 'undefined')
+    .fade.in.alert.alert-block.alert-error
+      a.close(data-dismiss="alert", href="javascript:void(0)") x
+      ul
+        each error in errors
+          li= error.type
+
+  .row
+    .span7
+      form.form-horizontal(method="post", action=action)
+        if (!circle.isNew)
+          input(type="hidden", name="_method", value="PUT")
+
+        .control-group
+          label.control-label(for='title') Title
+          .controls
+            input#title.input-xlarge(type='text', name="title", value=circle.title, placeholder='Enter the title')
+
+        .control-group
+          label.control-label(for='amount') Amount
+          .controls
+            input#title.input-xlarge(type='text', name="amount", value=circle.amount, placeholder='Enter the Amount')
+            
+        .control-group
+          label.control-label(for='period') Period
+          .controls
+            input#title.input-xlarge(type='text', name="period", value=circle.period, placeholder='Enter the period')            
+
+        .form-actions
+          button.btn.btn-primary(type='submit') Save changes
+          &nbsp;
+          a.btn(href='/circles', title="cancel") Cancel
+    .span5
+

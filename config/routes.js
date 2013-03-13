@@ -35,6 +35,15 @@ module.exports = function (app, passport, auth) {
   app.put('/articles/:id', auth.requiresLogin, auth.article.hasAuthorization, articles.update)
   app.del('/articles/:id', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy)
 
+  
+  
+  var circles = require('../app/controllers/circles')
+  app.get('/circles/new', auth.requiresLogin, circles.new)
+  app.post('/circles', auth.requiresLogin, circles.create)
+  app.get('/circles/:cid', circles.show)  
+  
+  
+  app.param('cid', circles.circle)  
   app.param('id', articles.article)
 
   // home route

@@ -1,0 +1,13 @@
+extends ../layouts/default
+
+block main
+  h1= circle.title
+
+block content
+  .row
+    .span9
+      p=circle.title
+      p=circle.amount
+      p=circle.period
+      p Users :
+  button.btn.btn-small  invite friend to your circle 

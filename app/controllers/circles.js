@@ -1,65 +1,45 @@
 
-/**
- * Module dependencies.
- */
-
 var mongoose = require('mongoose')
-  , Imager = require('imager')
   , async = require('async')
-  , Article = mongoose.model('Article')
+  , Circle = mongoose.model('Circle')
   , _ = require('underscore')
 
-/**
- * Find article by id
- */
 
-exports.article = function(req, res, next, id){
+exports.circle = function(req, res, next, id){
   var User = mongoose.model('User')
 
-  Article.load(id, function (err, article) {
+  Circle.load(id, function (err, circle) {
     if (err) return next(err)
-    if (!article) return next(new Error('Failed to load article ' + id))
-    req.article = article
+    if (!circle) return next(new Error('Failed to load circle ' + id))
+    req.circle = circle
     next()
   })
 }
 
-/**
- * New article
- */
-
 exports.new = function(req, res){
-  res.render('articles/new', {
-    title: 'New Article',
-    article: new Article({})
+  res.render('circles/new', {
+    title: 'New Circle',
+    circle: new Circle({})
   })
 }
 
-/**
- * Create an article
- */
-
 exports.create = function (req, res) {
-  var article = new Article(req.body)
-  article.inituser = req.user
+  var circle = new Circle(req.body)
+  circle.user = req.user
 
-  article.uploadAndSave(req.files.image, function (err) {
+  circle.save(function (err) {
     if (err) {
-      res.render('articles/new', {
-        title: 'New Article',
-        article: article,
+      res.render('circles/new', {
+        title: 'New Circle',
+        circle: circle,
         errors: err.errors
       })
     }
     else {
-      res.redirect('/articles/'+article._id)
+      res.redirect('/circles/'+circle._id)
     }
   })
 }
-
-/**
- * Edit an article
- */
 
 exports.edit = function (req, res) {
   res.render('articles/edit', {
@@ -67,10 +47,6 @@ exports.edit = function (req, res) {
     article: req.article
   })
 }
-
-/**
- * Update article
- */
 
 exports.update = function(req, res){
   var article = req.article
@@ -90,20 +66,12 @@ exports.update = function(req, res){
   })
 }
 
-/**
- * View an article
- */
-
 exports.show = function(req, res){
-  res.render('articles/show', {
-    title: req.article.title,
-    article: req.article
+  res.render('circles/show', {
+    title: req.circle.title,
+    circle: req.circle
   })
 }
-
-/**
- * Delete an article
- */
 
 exports.destroy = function(req, res){
   var article = req.article
@@ -112,10 +80,6 @@ exports.destroy = function(req, res){
     res.redirect('/articles')
   })
 }
-
-/**
- * List of Articles
- */
 
 exports.index = function(req, res){
   var page = req.param('page') > 0 ? req.param('page') : 0
